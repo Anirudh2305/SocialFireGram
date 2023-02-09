@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">socialfire</string>
+    <string name="webClient_id">281506768891-h5eqvof1j353fbdpkc6hrrc2860d5gcv.apps.googleusercontent.com</string>
+    <string name="registerAsk"><![CDATA[<u>Already Registered? Sign In</u>.]]></string>
+    <string name="registerAsk2">Already Registered? Sign In</string>
 </resources>

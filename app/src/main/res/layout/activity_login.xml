@@ -32,4 +32,46 @@
         android:layout_height="70dp"
         android:text="Login" />
 
+    <LinearLayout
+        android:layout_marginTop="80dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_marginTop="12dp"
+            android:layout_width="176dp"
+            android:layout_height="2dp"
+            android:background="#c0c0c0"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="OR"
+            android:layout_gravity="center_vertical"
+            android:textSize="20sp"/>
+
+        <View
+            android:layout_marginTop="12dp"
+            android:layout_width="176dp"
+            android:layout_height="2dp"
+            android:background="#c0c0c0"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_marginTop="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Login using the following"
+        android:layout_gravity="center"
+        android:textSize="20sp"/>
+
+    <com.google.android.gms.common.SignInButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/GSignInButton"
+        android:layout_gravity="center"
+        android:layout_marginTop="15dp" />
+
 </LinearLayout>
