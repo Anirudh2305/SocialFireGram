@@ -90,10 +90,16 @@ open class PostsActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
+        /*
         if(item.itemId == R.id.menu_person) {
             val intent = Intent(this,ProfileActivity::class.java)
             intent.putExtra(EXTRA_USERNAME,signedInUser?.username)
             startActivity(intent)
+        }
+         */
+        if(item.itemId == R.id.menu_person) {
+            startActivity(Intent(this,Account::class.java))
         }
         return super.onOptionsItemSelected(item)
     }

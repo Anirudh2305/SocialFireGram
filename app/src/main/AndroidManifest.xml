@@ -15,6 +15,9 @@
         android:theme="@style/Theme.Socialfire"
         tools:targetApi="31">
         <activity
+            android:name=".Account"
+            android:exported="false" />
+        <activity
             android:name=".LoginActivity"
             android:exported="false" />
         <activity
