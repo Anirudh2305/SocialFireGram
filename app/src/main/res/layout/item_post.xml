@@ -36,7 +36,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="12sp"
-            tools:text="48 minutes ago" />
+            tools:text="48 minutes ago"
+            android:layout_marginStart="39dp"/>
 
         <ImageView
             android:id="@+id/ivPost"
@@ -51,7 +52,35 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:textSize="15sp"
             tools:text="Super cool post description!" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:id="@+id/btnLike"
+                android:src="@drawable/baseline_unliked"
+                android:clickable="true"
+                android:focusable="true"
+                android:scaleType="centerCrop"
+                android:contentDescription="click"
+                />
+
+            <TextView
+                android:id="@+id/tvLikeCount"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:autoSizeTextType="uniform"
+                android:text="0"
+                android:layout_marginStart="4dp"/>
+
+        </LinearLayout>
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

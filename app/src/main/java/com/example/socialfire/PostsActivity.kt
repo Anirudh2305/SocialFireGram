@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.socialfire.models.Post
 import com.example.socialfire.models.User
@@ -22,7 +23,7 @@ import java.util.zip.Inflater
 
 private const val TAG = "PostsActivity"
 const val EXTRA_USERNAME = "extra"
-open class PostsActivity : AppCompatActivity() {
+open class PostsActivity : AppCompatActivity(),OnPostClickListener {
 
     private var signedInUser: User?=null
     private lateinit var firebaseDb:FirebaseFirestore
@@ -35,7 +36,7 @@ open class PostsActivity : AppCompatActivity() {
 
         posts = mutableListOf()
 
-        adapter = PostsAdapter(this,posts)
+        adapter = PostsAdapter(this,posts,this)
         rvPosts.adapter = adapter
         rvPosts.layoutManager=LinearLayoutManager(this)
 
@@ -72,15 +73,30 @@ open class PostsActivity : AppCompatActivity() {
             for(post in postList) {
                 Log.i(TAG,"Post: $post")
             }
+
             /*
+            val map = HashMap<String,Any>()
+            map["likedBy"] = ArrayList<String>()
+
             for(document in snapshot.documents) {
-                Log.i(TAG,"Document ${document.id}:${document.data}")
+                //Log.i(TAG,"Document ${document.id}:${document.data}")
+                val docRef = firebaseDb.collection("posts").
+                document(document.id)
+
+                docRef.update(map).addOnCompleteListener {
+                    if(it.isSuccessful) {
+                        Toast.makeText(this,"Kaam hogya",Toast.LENGTH_SHORT).show()
+                    } else {
+                        Log.e(TAG,"game over")
+                    }
+                }
             }
-             */
+            */
         }
 
         fabCreate.setOnClickListener {
             startActivity(Intent(this,CreateActivity::class.java))
+
         }
     }
 
@@ -102,5 +118,38 @@ open class PostsActivity : AppCompatActivity() {
             startActivity(Intent(this,Account::class.java))
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onPostClick(position: Int) {
+        val post = posts[position]
+        val currentUserid = FirebaseAuth.getInstance().currentUser!!.uid
+        val isLiked = post.likedBy.contains(currentUserid)
+
+        if(isLiked) {
+            post.likedBy.remove(currentUserid)
+        } else {
+            post.likedBy.add(currentUserid)
+        }
+        // save this post to db
+        // dbcollec.document(postId).update/set(post)
+        var pos = position
+        var postsReference = firebaseDb.collection("posts").
+        limit(20).orderBy("creation_time_ms",Query.Direction.DESCENDING)
+
+        postsReference.addSnapshotListener { snapshot, exception ->
+            if (exception != null || snapshot == null) {
+                Log.e(TAG, "Exception when liking", exception)
+                return@addSnapshotListener
+            }
+            val documents = snapshot.documents
+            documents.forEach{
+                if(pos==0)
+                {
+                    firebaseDb.collection("posts").document(it.id).set(post)
+                }
+                pos--
+            }
+
+        }
     }
 }
